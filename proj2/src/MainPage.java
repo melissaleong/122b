@@ -8,7 +8,7 @@ import java.sql.*;
 /**
  * Servlet implementation class weInBoys
  */
-public class weInBoys extends HttpServlet {
+public class MainPage extends HttpServlet {
 //	private static final long serialVersionUID = 1L;
        
 	/**
@@ -17,8 +17,10 @@ public class weInBoys extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.println("Welcome!");
+		RequestDispatcher view = request.getRequestDispatcher("mainpage.html");
+		view.forward(request, response);
+//		PrintWriter out = response.getWriter();
+//		out.println("Welcome!");
 	}
 
 }
