@@ -18,20 +18,25 @@
 		for(int i = 0; i < size; ++i) {%>
 		
 		<tr>
+			<td><%= movieList.get(i).id %></td>
 			<td><%= movieList.get(i).title %></td>
+			<td><%= movieList.get(i).year %></td>
+			<td><%= movieList.get(i).director %></td>
+			<td> <b>GENRES</b>
+			<% int genre_size = movieList.get(i).genresInMovie.size();
+				for(int j = 0; j < genre_size; ++j) { %>
+					<p> <%= movieList.get(i).genresInMovie.get(j) %> </p>
+					<%}%>
+			</td>
+			
+			<td> <b>STARS</b>
+			<% int star_size = movieList.get(i).starsInMovie.size(); 
+				for(int j = 0; j < star_size; ++j) {%>
+				<p> <%= movieList.get(i).starsInMovie.get(j).fn %> <%= movieList.get(i).starsInMovie.get(j).ln %></p>
+				<%}%>
+			</td>
 		</tr>
-			<%}%>
-		
-<%-- 		<%
-			int size = (Integer)request.getAttribute("movieListSize");
-			List<Movie> movieList = (List<Movie>)request.getAttribute("movieList");
-			for (int i = 0; i < size; ++i) {
-				Movie m = movieList.get(i);
-			}
-		%> --%>
-		
-		
-		
+		<%}%>
 	</table>
 </body>
 </html>

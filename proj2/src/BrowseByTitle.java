@@ -27,9 +27,11 @@ public class BrowseByTitle extends HttpServlet {
 			
 			List<Movie> movieList = getMovieList(title, connection);
 			
-//			for (int i = 0; i < movieList.size(); ++i) {
-//				System.out.println(movieList.get(i).title);
-//			}
+			for (int i = 0; i < movieList.size(); ++i) {
+				for(int j = 0; j<movieList.get(i).starsInMovie.size(); ++j) {
+					System.out.println(movieList.get(i).starsInMovie.get(j).fn);
+				}
+			}
 			
 			request.setAttribute("movieList", movieList);
 			request.setAttribute("movieListSize", movieList.size());
@@ -37,42 +39,7 @@ public class BrowseByTitle extends HttpServlet {
 			
 		} catch(Exception e) {
 			e.printStackTrace();
-		}
-		
-		
-//		PrintWriter out = response.getWriter();
-//		
-//		String title = request.getParameter("title");
-//		
-//		try {
-//			Class.forName("com.mysql.jdbc.Driver").newInstance();
-//			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
-//			Statement select = connection.createStatement();
-//			if (title != null && request.getParameter("by title") != null) {
-//				String query = "SELECT DISTINCT * FROM movies WHERE title LIKE '%" + title + "%'";
-//				ResultSet result = select.executeQuery(query);
-//				
-//				out.println("<HTML><HEAD><TITLE>MovieDB</TITLE></HEAD>");
-//				out.println("<BODY><H1>MovieDB</H1>");
-//				out.println("<TABLE border>");
-//				
-//				while(result.next()) {
-//					String m_title = result.getString("title");
-//					String m_year = result.getString("year");
-//					String m_director = result.getString("director");
-//					out.println("<tr>" + "<td>" + m_title + "</td>" + "<td>" + m_year + "</td>" + "<td>" + m_director + "</td>" + "</tr>");
-////					System.out.println("Title = " + result.getString(2));
-//				}
-//				out.println("</TABLE>");
-//				result.close();
-//				select.close();
-//				connection.close();
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		out.close();
-		
+		}		
 	}
 
 
@@ -137,7 +104,7 @@ public class BrowseByTitle extends HttpServlet {
 				getStars.close();
 				
 				Statement getGenres = connection.createStatement();
-				String query2 = "SELECT DISTINCT * FROM genres g LEFT OUTER JOIN genres_in_movies gm ON gm.genre_id=g.id where gm.movie_id = '" + m.id + "'";
+				String query2 = "SELECT DISTINCT * FROM genres g LEFT OUTER JOIN genres_in_movies gm ON gm.genre_id=g.id where gm.movie_id = " + m.id;
 				ResultSet genresResult = getGenres.executeQuery(query2);
 				
 				while(genresResult.next()) {
