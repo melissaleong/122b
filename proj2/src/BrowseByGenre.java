@@ -41,7 +41,7 @@ public class BrowseByGenre extends HttpServlet {
 	}
 	
 	public List<Movie> getMovieList(String input, Connection connection) {
-		System.out.println(input);
+//		System.out.println(input);
 		List<Movie> movieList = new ArrayList<Movie>();
 		
 		try {

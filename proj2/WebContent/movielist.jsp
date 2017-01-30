@@ -19,20 +19,29 @@
 		
 		<tr>
 			<td><%= movieList.get(i).id %></td>
-			<td><%= movieList.get(i).title %></td>
+			<td><a href="http://google.com"><%= movieList.get(i).title %></a></td>
 			<td><%= movieList.get(i).year %></td>
 			<td><%= movieList.get(i).director %></td>
 			<td> <b>GENRES</b>
 			<% int genre_size = movieList.get(i).genresInMovie.size();
 				for(int j = 0; j < genre_size; ++j) { %>
-					<p> <%= movieList.get(i).genresInMovie.get(j) %> </p>
+					<p> <%= movieList.get(i).genresInMovie.get(j) %></p>
 					<%}%>
 			</td>
 			
 			<td> <b>STARS</b>
 			<% int star_size = movieList.get(i).starsInMovie.size(); 
-				for(int j = 0; j < star_size; ++j) {%>
-				<p> <%= movieList.get(i).starsInMovie.get(j).fn %> <%= movieList.get(i).starsInMovie.get(j).ln %></p>
+				for(int j = 0; j < star_size; ++j) {
+				int id = movieList.get(i).starsInMovie.get(j).id;
+				String first_name = movieList.get(i).starsInMovie.get(j).fn;
+				String last_name = movieList.get(i).starsInMovie.get(j).ln;
+				String dob = movieList.get(i).starsInMovie.get(j).dob;
+				String photo_url = movieList.get(i).starsInMovie.get(j).photo_url;
+				List<String> movie_list = movieList.get(i).starsInMovie.get(j).featuredMoviesTitle;
+				request.getSession().setAttribute("movie_list",movie_list);
+				
+				%>
+				<p> <a href="starinfo.jsp?fn=<%=first_name%>&ln=<%=last_name%>&id=<%=id%>&photo_url=<%=photo_url%>&dob=<%=dob%>"><%= first_name %> <%= last_name %> </a></p>
 				<%}%>
 			</td>
 		</tr>

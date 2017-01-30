@@ -34,4 +34,24 @@
     <servlet-name>BrowseByTitle</servlet-name>
     <url-pattern>/BrowseByTitle</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BrowseByGenre</display-name>
+    <servlet-name>BrowseByGenre</servlet-name>
+    <servlet-class>BrowseByGenre</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BrowseByGenre</servlet-name>
+    <url-pattern>/BrowseByGenre</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>StarInfo</display-name>
+    <servlet-name>StarInfo</servlet-name>
+    <servlet-class>StarInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StarInfo</servlet-name>
+    <url-pattern>/StarInfo</url-pattern>
+  </servlet-mapping>
 </web-app>

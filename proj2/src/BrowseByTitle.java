@@ -27,11 +27,12 @@ public class BrowseByTitle extends HttpServlet {
 			
 			List<Movie> movieList = getMovieList(title, connection);
 			
-			for (int i = 0; i < movieList.size(); ++i) {
-				for(int j = 0; j<movieList.get(i).starsInMovie.size(); ++j) {
-					System.out.println(movieList.get(i).starsInMovie.get(j).fn);
-				}
-			}
+			
+//			for (int i = 0; i < movieList.size(); ++i) {
+//				for(int j = 0; j<movieList.get(i).starsInMovie.size(); ++j) {
+//					System.out.println(movieList.get(i).starsInMovie.get(j).fn);
+//				}
+//			}
 			
 			request.setAttribute("movieList", movieList);
 			request.setAttribute("movieListSize", movieList.size());
@@ -55,7 +56,7 @@ public class BrowseByTitle extends HttpServlet {
 		
 		try {
 			Statement statement = connection.createStatement();
-			String query = "SELECT DISTINCT * FROM movies where title like '" + input + "%'";
+			String query = "SELECT DISTINCT * FROM movies where title like '%" + input + "%'";
 			ResultSet result = statement.executeQuery(query);
 			
 			movieList = BrowseByTitle.returnMovieList(result, connection);
