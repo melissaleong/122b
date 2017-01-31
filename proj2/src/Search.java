@@ -13,7 +13,7 @@ public class Search extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-		
+		System.out.println("Trying to connect...");
 		HttpSession mySession = request.getSession();
 		try{
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
@@ -24,13 +24,18 @@ public class Search extends HttpServlet {
 			String firstname = request.getParameter("firstname");
 			String lastname = request.getParameter("lastname");
 			
+			System.out.println("Movie List function starting");
 			List<Movie> movieList = getMovieList(title,year, director, firstname, lastname, connection);
 			
-			for (int i = 0; i < movieList.size(); ++i) {
-				for(int j = 0; j<movieList.get(i).starsInMovie.size(); ++j) {
-					System.out.println(movieList.get(i).starsInMovie.get(j).fn);
-				}
-			}
+//			for (int i = 0; i < movieList.size(); ++i) {
+//				for(int j = 0; j<movieList.get(i).starsInMovie.size(); ++j) {
+//					System.out.println(movieList.get(i).starsInMovie.get(j).fn);
+//				}
+//			}
+			
+			request.setAttribute("movieList", movieList);
+			request.setAttribute("movieListSize", movieList.size());
+			request.getRequestDispatcher("movielist.jsp").forward(request, response);
 			
 		} catch (Exception e){
 			e.printStackTrace();
@@ -49,11 +54,13 @@ public class Search extends HttpServlet {
 	
 	public List<Movie> getMovieList(String title, String year, String director, String firstname, String lastname, Connection connection) {
 		List<Movie> movieList = new ArrayList<Movie>();
-		//need to make advanced query calls here
 		try {
 			Statement statement = connection.createStatement();
-			String query = "SELECT DISTINCT * FROM movies where";
-			createStringQuery(query, title, year, director, firstname, lastname);
+			String query = "SELECT DISTINCT movies.id, movies.title, movies.year, movies.director, movies.banner_url, movies.trailer_url "
+					+ "FROM (movies CROSS JOIN stars) CROSS JOIN stars_in_movies WHERE "
+					+"(stars_in_movies.star_id = stars.id AND stars_in_movies.movie_id =movies.id)" ;
+			query = createStringQuery(query, title, year, director, firstname, lastname);
+			System.out.println(query);
 			ResultSet result = statement.executeQuery(query);
 			
 			movieList = BrowseByTitle.returnMovieList(result, connection);
@@ -120,17 +127,53 @@ public class Search extends HttpServlet {
 		return movieList;
 	}
 	
+	//using the QueryField enum, adds to the query string according to what type of value the item is
+	private String addFieldToWhere(String query, QueryField fieldToAdd, String fieldValue ) {
+		String finalQuery = query;
+			if (fieldValue != ""){
+				finalQuery = finalQuery + " AND " + fieldToAdd.name 
+					+ " " + fieldToAdd.fieldValuePrefix + fieldValue + fieldToAdd.fieldValueSuffix;
+			}
+			
+		return finalQuery;
+	}
+	
 	
 	private String createStringQuery(String query, String title, String year, String director, String firstname, String lastname){
 		String result = query;
+		String[] queryInputs = {title, year, director, firstname, lastname};
 		
-		//need to figure out how to run query, need to implement firstname and lastname join on for this.
-		
-		
-		
+		Map<QueryField, String> queryItems = new HashMap<QueryField,String>();
+		queryItems = populateHashMap(queryItems, queryInputs);
+		for (QueryField Key : queryItems.keySet() ){
+			result = addFieldToWhere(result, Key, queryItems.get(Key));
+		}
+				
 		return result;
 	}
 	
+	//populates the hashmap that will be used to create the rest of the query after WHERE
+	private Map<QueryField, String> populateHashMap(Map<QueryField, String> queryItems, String[] queryInputs){ 
+		Map<QueryField, String> resultMap = queryItems;
+		for (int i = 0; i< queryInputs.length;i++){
+			if (i ==0){
+				resultMap.put(QueryField.Title, queryInputs[0]);
+			}
+			else if (i==1){
+				resultMap.put(QueryField.Year, queryInputs[1]);
+			}
+			else if (i==2){
+				resultMap.put(QueryField.Director, queryInputs[2]);
+			}
+			else if (i==3){
+				resultMap.put(QueryField.FirstName, queryInputs[3]);
+			}
+			else if (i==4){
+				resultMap.put(QueryField.LastName, queryInputs[4]);
+			}
+		}
+		return resultMap;
+	}
 	
 	
 	
