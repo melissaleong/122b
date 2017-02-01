@@ -1,10 +1,10 @@
 
 public enum QueryField {
-	Title("title", "like '", "%'"),
-	Year("year", " = ", ""), 
-	Director("director", "= '", "'"),
-	FirstName("first_name", "= '", "'"),
-	LastName("last_name", "= '", "'");
+	Title("movies.title", "like '%", "%'"),
+	Year("movies.year", " = ", ""), 
+	Director("movies.director", "like '%", "%'"),
+	FirstName("stars.first_name", "like '%", "%'"),
+	LastName("stars.last_name", "like '%", "%'");
 	
 	public String name;
 	public String fieldValuePrefix;
