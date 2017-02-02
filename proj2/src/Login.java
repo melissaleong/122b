@@ -4,7 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.*;
-
+import HelperClasses.*;
 
 public class Login extends HttpServlet {
 //	private static final long serialVersionUID = 1L;
@@ -26,6 +26,7 @@ public class Login extends HttpServlet {
 		
 		if(checkUser(email, password)) {
 //			response.sendRedirect(request.getContextPath() + "/mainpage.html");
+			mySession.setAttribute("cart_session", new cartSession());
 			response.sendRedirect("mainpage.html");
 
 		}

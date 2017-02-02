@@ -16,7 +16,6 @@
 		int size = (Integer)request.getAttribute("movieListSize");
 		List<Movie> movieList = (List)request.getAttribute("movieList");
 		for(int i = 0; i < size; ++i) {%>
-		
 		<tr>
 			<td><%= movieList.get(i).id %></td>
 			<td><a href="http://google.com"><%= movieList.get(i).title %></a></td>
@@ -43,6 +42,11 @@
 				%>
 				<p> <a href="starinfo.jsp?fn=<%=first_name%>&ln=<%=last_name%>&id=<%=id%>&photo_url=<%=photo_url%>&dob=<%=dob%>"><%= first_name %> <%= last_name %> </a></p>
 				<%}%>
+			</td>
+			<td>
+				<form name="addMovietoCart" action="CartPages?request=add_item&quantity=1&id=<%=movieList.get(i).id %>" method="POST">
+					<button type="submit" >Add Movie to Cart</button>
+				</form>
 			</td>
 		</tr>
 		<%}%>
