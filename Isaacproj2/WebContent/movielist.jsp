@@ -11,7 +11,23 @@
 <body>
  	<table style="width:100%" border="1">
 		<h1>Found ${movieListSize} result(s). </h1>
-		
+		<tr>
+			<td>Movie ID</td>
+			<td>
+				Title
+				<a href= "Pages?fn=<%="title"%>&sort=<%="asc"%>">Asc</a>
+				<a href= "Pages?fn=<%="title"%>&sort=<%="desc"%>">Desc</a>
+			</td>
+			<td>
+				Year
+				<a href= "Pages?fn=<%="year"%>&sort=<%="asc"%>">Asc</a>
+				<a href= "Pages?fn=<%="year"%>&sort=<%="desc"%>">Desc</a>				
+			</td>
+			<td>Director</td>
+			<td>Genres</td>
+			<td>Stars</td>
+			
+		</tr>
 		<%
 
 		int currentPage = (Integer)request.getAttribute("page");

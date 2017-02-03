@@ -61,7 +61,7 @@ public class BrowseByTitle extends HttpServlet {
 			ResultSet result = statement.executeQuery(query);
 			
 			movieList = BrowseByTitle.returnMovieList(result, connection);
-			MovieList storedMovieList = new MovieList(movieList);
+			MovieList storedMovieList = new MovieList(movieList, query);
 //			numOfMovies = movieList.size();
 //			
 //			query = createPageStringQuery(query); //attempts to implement pagination here

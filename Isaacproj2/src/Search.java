@@ -74,7 +74,7 @@ public class Search extends HttpServlet {
 			query = createStringQuery(query, queryInputs);//for total results
 			ResultSet result = statement.executeQuery(query);
 			movieList = BrowseByTitle.returnMovieList(result, connection);
-			MovieList storedMovieList = new MovieList(movieList);
+			MovieList storedMovieList = new MovieList(movieList, query);
 					
 			result.close();
 			statement.close();
