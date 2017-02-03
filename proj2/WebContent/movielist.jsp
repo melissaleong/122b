@@ -13,6 +13,9 @@
 		<h1>Found ${movieListSize} result(s). </h1>
 		
 		<%
+		int currentPage = (Integer)request.getAttribute("page");
+		int numOfPages = (Integer)request.getAttribute("numOfPages");	
+		
 		int size = (Integer)request.getAttribute("movieListSize");
 		List<Movie> movieList = (List)request.getAttribute("movieList");
 		for(int i = 0; i < size; ++i) {%>
@@ -51,5 +54,28 @@
 		</tr>
 		<%}%>
 	</table>
+	<br>
+	<%
+		if (currentPage != 1){%>
+		 	<a href= "Search?page=<%=currentPage-1%>"> Previous </a>
+	 <%}%>
+	
+	<table border = "1">
+	 	<%
+	 	for (int i = 1; i<=numOfPages;i++){
+	 		if (i ==currentPage){%>
+	 			<td> <%=i%> </td>
+	 		<%} 
+	 		else{%>
+	 			<td> <a href= "Search?page=<%=i%>"><%= i%> </a></td>
+	 		<%}%>
+	 		
+	 	<%} %>
+	 	</tr>
+	 </table> <br>
+	 
+	<%if (currentPage < numOfPages){%>
+		<a href = "Search?page=<%=currentPage+1%>">Next</a>
+	<%} %>
 </body>
 </html>

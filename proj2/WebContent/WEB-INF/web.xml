@@ -54,7 +54,7 @@
     <servlet-name>StarInfo</servlet-name>
     <url-pattern>/StarInfo</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>Search</display-name>
     <servlet-name>Search</servlet-name>
@@ -63,5 +63,15 @@
   <servlet-mapping>
     <servlet-name>Search</servlet-name>
     <url-pattern>/Search</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>Pages</display-name>
+    <servlet-name>Pages</servlet-name>
+    <servlet-class>Pages</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Pages</servlet-name>
+    <url-pattern>/Pages</url-pattern>
   </servlet-mapping>
 </web-app>
