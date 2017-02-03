@@ -1,24 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "HelperClasses.*, java.util.*"  %>
+<%@ page import = "HelperClasses.*, java.util.*, java.math.*"  %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Search Results</title>
 </head>
 <body>
  	<table style="width:100%" border="1">
 		<h1>Found ${movieListSize} result(s). </h1>
 		
 		<%
+
 		int currentPage = (Integer)request.getAttribute("page");
-		int numOfPages = (Integer)request.getAttribute("numOfPages");	
+		int moviesPerPage = 10;
 		
-		int size = (Integer)request.getAttribute("movieListSize");
 		List<Movie> movieList = (List)request.getAttribute("movieList");
-		for(int i = 0; i < size; ++i) {%>
+		
+		int numOfPages = (int) Math.ceil((movieList.size()*1.0)/moviesPerPage);
+		
+
+ 		request.setAttribute("movieList", movieList);
+		
+		int size = movieList.size();
+
+		
+		for(int i = (currentPage-1)*moviesPerPage; i < (currentPage-1)*moviesPerPage+moviesPerPage; ++i) {
+		
+		%>
 		<tr>
 			<td><%= movieList.get(i).id %></td>
 			<td><a href="http://google.com"><%= movieList.get(i).title %></a></td>
@@ -46,6 +57,7 @@
 				<p> <a href="starinfo.jsp?fn=<%=first_name%>&ln=<%=last_name%>&id=<%=id%>&photo_url=<%=photo_url%>&dob=<%=dob%>"><%= first_name %> <%= last_name %> </a></p>
 				<%}%>
 			</td>
+			
 			<td>
 				<form name="addMovietoCart" action="CartPages?request=add_item&quantity=1&id=<%=movieList.get(i).id %>" method="POST">
 					<button type="submit" >Add Movie to Cart</button>
@@ -56,8 +68,9 @@
 	</table>
 	<br>
 	<%
+
 		if (currentPage != 1){%>
-		 	<a href= "Search?page=<%=currentPage-1%>"> Previous </a>
+		 	<a href= "Pages?page=<%=currentPage-1%>"> Previous </a>
 	 <%}%>
 	
 	<table border = "1">
@@ -65,9 +78,9 @@
 	 	for (int i = 1; i<=numOfPages;i++){
 	 		if (i ==currentPage){%>
 	 			<td> <%=i%> </td>
-	 		<%} 
+	 		<%}
 	 		else{%>
-	 			<td> <a href= "Search?page=<%=i%>"><%= i%> </a></td>
+	 			<td> <a href= "Pages?page=<%=i%>"><%= i%> </a></td>
 	 		<%}%>
 	 		
 	 	<%} %>
@@ -75,7 +88,9 @@
 	 </table> <br>
 	 
 	<%if (currentPage < numOfPages){%>
-		<a href = "Search?page=<%=currentPage+1%>">Next</a>
+		<a href = "Pages?page=<%=currentPage+1%>">Next</a>
 	<%} %>
+	
+
 </body>
 </html>
