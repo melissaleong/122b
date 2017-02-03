@@ -11,7 +11,7 @@
 <body>
 	<h1> <%= request.getParameter("title")%></h1>
 	<h2> STARS IN MOVIE</h2>
-	<% Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
+	<% Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
 	Star star = new Star();
 	Statement statement = connection.createStatement();
 	String query = "SELECT DISTINCT * FROM stars s LEFT OUTER JOIN stars_in_movies sm ON sm.star_id=s.id where sm.movie_id = " + request.getParameter("id");

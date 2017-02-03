@@ -44,11 +44,11 @@
 
 		
 		for(int i = (currentPage-1)*moviesPerPage; i < (currentPage-1)*moviesPerPage+moviesPerPage; ++i) {
-		
+			if (i<size){
 		%>
 		<tr>
 			<td><%= movieList.get(i).id %></td>
-			<td><a href="http://google.com"><%= movieList.get(i).title %></a></td>
+			<td><a href="movieinfo.jsp?title=<%=movieList.get(i).title%>&id=<%=movieList.get(i).id%>"><%= movieList.get(i).title %></a></td>
 			<td><%= movieList.get(i).year %></td>
 			<td><%= movieList.get(i).director %></td>
 			<td> <b>GENRES</b>
@@ -80,6 +80,7 @@
 				</form>
 			</td>
 		</tr>
+			<%}%>
 		<%}%>
 	</table>
 	<br>

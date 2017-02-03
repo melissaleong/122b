@@ -21,7 +21,7 @@
 	<p>DoB = <%=dob%></p>
 	<p><a href = "<%=photo_url%>"> photos of actor </a></p>
 	
-	<% Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
+	<% Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
 	Star star = new Star();
 	Statement statement = connection.createStatement();
 	String query = "SELECT DISTINCT * FROM movies m LEFT OUTER JOIN stars_in_movies s ON movie_id=m.id  WHERE star_id=" + id + "";
