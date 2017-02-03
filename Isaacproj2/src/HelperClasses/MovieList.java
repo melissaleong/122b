@@ -9,6 +9,7 @@ import java.io.*;
 public class MovieList {
 	public static List<Movie> movieList;
 	public static int numOfMovies;
+
 	
 	public MovieList(){};
 	

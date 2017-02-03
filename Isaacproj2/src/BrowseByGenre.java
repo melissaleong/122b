@@ -12,9 +12,7 @@ import java.util.*;
  * Servlet implementation class BrowseByGenre
  */
 public class BrowseByGenre extends HttpServlet {
-	
-	int numOfMovies=0;
-	
+		
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
@@ -26,19 +24,14 @@ public class BrowseByGenre extends HttpServlet {
 			String genre = request.getParameter("genre");
 			
 			int page = 1;
-			int moviesPerPage = 10;
 			if (request.getParameter("page")!= null){
 				page = Integer.parseInt(request.getParameter("page"));
 			}
-			int offset = (page-1)*moviesPerPage;
 			
-			List<Movie> movieList = getMovieList(genre, connection, offset, moviesPerPage);
+			List<Movie> movieList = getMovieList(genre, connection);
 
-			int numOfPages = (int) Math.ceil((numOfMovies * 1.0)/ moviesPerPage);
 			
 			request.setAttribute("page", page);
-			request.setAttribute("numOfPages", numOfPages);
-
 			request.setAttribute("movieList", movieList);
 			request.setAttribute("movieListSize", movieList.size());
 			request.getRequestDispatcher("movielist.jsp").forward(request, response);
@@ -55,7 +48,7 @@ public class BrowseByGenre extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	public List<Movie> getMovieList(String input, Connection connection,int offset,int moviesPerPage) {
+	public List<Movie> getMovieList(String input, Connection connection) {
 		System.out.println(input);
 		List<Movie> movieList = new ArrayList<Movie>();
 		
@@ -65,11 +58,8 @@ public class BrowseByGenre extends HttpServlet {
 			
 			ResultSet result = statement.executeQuery(query);
 			movieList = BrowseByTitle.returnMovieList(result, connection);
-			numOfMovies = movieList.size();
-			
-			query = createPageStringQuery(query, offset, moviesPerPage); //attempts to implement pagination here
-			result = statement.executeQuery(query);	
-			movieList = BrowseByTitle.returnMovieList(result, connection);
+			MovieList storedMovieList= new MovieList(movieList);
+
 			
 			result.close();
 			statement.close();
@@ -83,10 +73,6 @@ public class BrowseByGenre extends HttpServlet {
 		
 	}
 	
-	private String createPageStringQuery(String query, int offset, int moviesPerPage){ //use later
-		String result = query;
-		result = query + " LIMIT " + moviesPerPage + " OFFSET " + offset;
-		return result;
-	}
+
 
 }

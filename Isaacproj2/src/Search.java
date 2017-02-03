@@ -12,8 +12,6 @@ import java.util.*;
  */
 public class Search extends HttpServlet {
 //	private static final long serialVersionUID = 1L;
-
-	private int numOfMovies=0;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
@@ -22,9 +20,8 @@ public class Search extends HttpServlet {
 		try{
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
 			
-			List<Movie> movieList;
+			 
 			int page = 1;
-			int moviesPerPage = 10;
 			if (request.getParameter("page")!= null){
 				page = Integer.parseInt(request.getParameter("page"));
 			}
@@ -40,13 +37,13 @@ public class Search extends HttpServlet {
 				System.out.println(s);
 			}
 			
-			movieList = getMovieList(queryInputs, connection);
+			List<Movie> movieList = getMovieList(queryInputs, connection);
 			
 			System.out.println(movieList.size());			
 			
 			request.setAttribute("page", page);
 			request.setAttribute("movieList", movieList);
-			request.setAttribute("movieListSize", numOfMovies);
+			request.setAttribute("movieListSize", movieList.size());
 			request.getRequestDispatcher("movielist.jsp").forward(request, response);
 			
 		} catch (Exception e){
@@ -78,8 +75,6 @@ public class Search extends HttpServlet {
 			ResultSet result = statement.executeQuery(query);
 			movieList = BrowseByTitle.returnMovieList(result, connection);
 			MovieList storedMovieList = new MovieList(movieList);
-			numOfMovies = movieList.size();
-
 					
 			result.close();
 			statement.close();

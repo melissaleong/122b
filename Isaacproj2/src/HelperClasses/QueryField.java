@@ -1,3 +1,4 @@
+package HelperClasses;
 
 public enum QueryField {
 	Title("movies.title", "like '%", "%'"),

@@ -38,6 +38,7 @@ public class Pages extends HttpServlet {
 		}
 		request.setAttribute("page", page);
 		request.setAttribute("movieList", movieList);
+		request.setAttribute("movieListSize", movieList.size());
 		request.getRequestDispatcher("pages.jsp").forward(request, response);
 
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
