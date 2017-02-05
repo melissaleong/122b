@@ -11,7 +11,7 @@
 <body>
 	<h1> <%= request.getParameter("title")%></h1>
 	<h2> STARS IN MOVIE</h2>
-	<% Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
+	<% Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
 	Star star = new Star();
 	Statement statement = connection.createStatement();
 	String query = "SELECT DISTINCT * FROM stars s LEFT OUTER JOIN stars_in_movies sm ON sm.star_id=s.id where sm.movie_id = " + request.getParameter("id");
@@ -32,8 +32,13 @@
 	<h4>GENRES</h4>
 	<% String g_query = "SELECT DISTINCT * FROM genres g LEFT OUTER JOIN genres_in_movies gm ON g.id=gm.genre_id where gm.movie_id = " + request.getParameter("id");
 	ResultSet genres = statement.executeQuery(g_query);
-	while(genres.next()){%>
-		<p><%= genres.getString("name") %></p>
+	List<String> genre_list = new ArrayList<String>();
+	while(genres.next()){
+		genre_list.add(genres.getString("name"));%>
+<%-- 		<p><%= genres.getString("name") %></p>
+ --%>	<%}%>
+	<%for (String g : genre_list) {%>
+		<a href="BrowseByGenre?genre=<%=g %>"> <%=g %> </a>
 	<%}%>
 	<h3>MORE INFO</h3>
 	
@@ -44,7 +49,8 @@
 	<p> <%= rs.getString("id") %> </p>
 	<p> <%= rs.getString("director") %> </p>
 	<p> <%= rs.getString("banner_url") %> </p>
-	<p> <%= rs.getString("trailer_url") %> </p>
+	<img src="<%=rs.getString("banner_url") %>">
+ 	<p> <a href="<%= rs.getString("trailer_url") %>"> TRAILER</a></p>
 	
 	
 </body>
