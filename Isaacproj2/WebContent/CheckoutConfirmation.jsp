@@ -8,14 +8,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CheckoutConfirmation</title>
 </head>
-<body>
+<Body BGCOLOR = "#F1948A"></Body>
+<div id="main_content">
 <%
 	if ((Customer) request.getSession().getAttribute("valid_customer") == null)
 	{
 		response.sendRedirect("index.html");
 	}
 %>
-<h3 style="position: absolute; top:150px; left:150px; font-family:raleway; ">Checkout complete</h3>
+<h3 style="position: absolute; top:150px; left:150px; ">Checkout complete</h3>
 
 </body>
 </html>
