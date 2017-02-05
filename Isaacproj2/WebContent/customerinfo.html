@@ -6,23 +6,21 @@
 </head>
 
 <Body BGCOLOR = "#F1948A"></Body>
-	<body>
-		<h1><font face = "Arial"> Checkout </font> </h1>
-		
-		<form  method="post" action action = "checkout"> 
-		First Name: <INPUT TYPE = "TEXT" NAME = "firstname"> <br>
-		Last Name: <INPUT TYPE = "TEXT" NAME = "lastname"> <br>
-		<br>
-		Credit Card Number: <INPUT TYPE = "TEXT" NAME = "CCnum" maxlength = "12"> <br>
-		<i>no dashes or spaces ############ </i> <br>
-		<br>
-		Credit Card Exp Date <i>(MM/YY)</i>: <INPUT TYPE = "TEXT" NAME = "ExpMonth" maxlength = "2" style = "width:30px;"> : <INPUT TYPE = "TEXT" NAME = "ExpDate" maxlength = "2" style = "width:30px;">
-		<br>
-		
-		 </form>
-	
-		<CENTER> 
-			<INPUT TYPE = "SUBMIT" VALUE = "CLICK HERE TO CONFIRM YOUR PURCHASE">
-		</CENTER>
-	</body>
+<div id="main_content">
+<div style="text-align:center;font-size:40px;">Checkout</div><br>
+
+<div style="font-size:20px; margin-left: auto; margin-right: auto; width: 20em;">
+	<form method="post"name="Checkout" action="Checkout" >
+	<span id="form1">Name on Card<br></span>
+	<input type="text" name="firstname" size="22"  value="" required/>
+	<input type="text" name="lastname" size="22" value="" required/><br>
+	<span id="form2">Credit Card Number<br></span>
+	<input type="text" name="CCnum" size="50"  maxlength="20" value="" required/>
+	<span id="form3">Expiration Date (YYYY-MM-DD)<br></span>
+	<input type="text" name="expiration" size="50" maxlength="10" value="" required/><br><br>
+	<input type="submit" name="Search Submit" value="Go" />
+	</form>
+</div>
+</div>
+</body>
 </html>
