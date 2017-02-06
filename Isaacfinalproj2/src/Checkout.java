@@ -39,7 +39,7 @@ public class Checkout extends HttpServlet {
 		response.setContentType("text/html");
 		HttpSession mySession = request.getSession();
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
 			String cc_id= request.getParameter("CCnum");
 			String f_name= request.getParameter("firstname");
 			String l_name= request.getParameter("lastname");
@@ -88,8 +88,7 @@ public class Checkout extends HttpServlet {
 						cart.clearall();
 						mySession.setAttribute("session_cart",cart);
 						request.setAttribute("checkout", true);
-						//request.getRequestDispatcher("CheckoutConfirmation.jsp").forward(request, response);
-						response.sendRedirect("CheckoutConfirmation.jsp");
+						request.getRequestDispatcher("CheckoutConfirmation.jsp").forward(request, response);
 					} catch(SQLException e){
 						System.out.println(e.getMessage());
 					}
