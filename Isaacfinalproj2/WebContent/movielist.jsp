@@ -55,10 +55,15 @@
 			<td><%= movieList.get(i).year %></td>
 			<td><%= movieList.get(i).director %></td>
 			<td> <b>GENRES</b>
-			<% int genre_size = movieList.get(i).genresInMovie.size();
-				for(int j = 0; j < genre_size; ++j) { %>
-					<p> <%= movieList.get(i).genresInMovie.get(j) %></p>
-					<%}%>
+			<%List<String> genre_list = new ArrayList<String>();
+			  int genre_size = movieList.get(i).genresInMovie.size();
+				for(int j = 0; j < genre_size; ++j) { 
+					genre_list.add(movieList.get(i).genresInMovie.get(j));%>
+<%-- 					<p> <%= movieList.get(i).genresInMovie.get(j) %></p>
+ --%>					<%}%>
+				<%for(String g : genre_list) {%>
+				<p><a href="BrowseByGenre?genre=<%=g%>"><%=g%></a></p>
+				<%}%>
 			</td>
 			
 			<td> <b>STARS</b>
