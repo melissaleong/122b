@@ -7,11 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>movie info</title>
+<style>body {background-color : DarkSalmon}</style>
+
 </head>
 <body>
-	<h1> <%= request.getParameter("title")%></h1>
-	<h2> STARS IN MOVIE</h2>
-	<% Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
+	<h1> <font size="7"><u><%= request.getParameter("title")%></u></font></h1>
+	<h2> <font size="5">STARS IN MOVIE</font></h2>
+	<% Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "root", "root");
 	Star star = new Star();
 	Statement statement = connection.createStatement();
 	String query = "SELECT DISTINCT * FROM stars s LEFT OUTER JOIN stars_in_movies sm ON sm.star_id=s.id where sm.movie_id = " + request.getParameter("id");
@@ -29,7 +31,7 @@
 		
 	<p> <a href="starinfo.jsp?fn=<%=first_name%>&ln=<%=last_name%>&id=<%=id%>&photo_url=<%=photo_url%>&dob=<%=dob%>"><%= first_name %> <%= last_name %> </a></p>	
 	<%}%>
-	<h4>GENRES</h4>
+	<h4><font size="5">GENRES</font></h4>
 	<% String g_query = "SELECT DISTINCT * FROM genres g LEFT OUTER JOIN genres_in_movies gm ON g.id=gm.genre_id where gm.movie_id = " + request.getParameter("id");
 	ResultSet genres = statement.executeQuery(g_query);
 	List<String> genre_list = new ArrayList<String>();
@@ -38,20 +40,22 @@
 <%-- 		<p><%= genres.getString("name") %></p>
  --%>	<%}%>
 	<%for (String g : genre_list) {%>
-		<a href="BrowseByGenre?genre=<%=g %>"> <%=g %> </a>
+		<a href="BrowseByGenre?genre=<%=g %>"> <%=g%> </a><br><br>
 	<%}%>
-	<h3>MORE INFO</h3>
+	<h3><font size="5">MORE INFO</font></h3>
 	
 	<% String query2 = "SELECT * FROM movies WHERE id = " + request.getParameter("id"); 
 	ResultSet rs = statement.executeQuery(query2); 
 	rs.next();%>
 	
-	<p> <%= rs.getString("id") %> </p>
-	<p> <%= rs.getString("director") %> </p>
-	<p> <%= rs.getString("banner_url") %> </p>
-	<img src="<%=rs.getString("banner_url") %>">
+	<p> Movie ID: <%= rs.getString("id") %> </p>
+	<p> Director: <%= rs.getString("director") %> </p>
+<%-- 	<p> <%= rs.getString("banner_url") %> </p>
+ --%>	<img src="<%=rs.getString("banner_url") %>">
  	<p> <a href="<%= rs.getString("trailer_url") %>"> TRAILER</a></p>
 	
+	<br><br>
+	<p><a href="mainpage.html">Back to Search/Browse</a></p>
 	
 </body>
 </html>

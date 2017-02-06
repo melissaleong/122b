@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Star Info</title>
+<style>body {background-color : DarkSalmon}</style>
 </head>
 <body>
 	<% String fn = request.getParameter("fn");
@@ -14,25 +15,27 @@
 	String id = request.getParameter("id");
 	String photo_url = request.getParameter("photo_url");
 	String dob = request.getParameter("dob");
-	
 	String actor_name = fn + " " + ln;%>
-	<p><%=id %>
-	<p><%=fn%> <%=ln %></p>
-	<p>DoB = <%=dob%></p>
+	<h2><font size="5">STAR INFO</font></h2>
+	<p>Star ID: <%=id %></p>
+	<p>Star Name: <%=fn%> <%=ln %></p>
+	<p>Date of Birth: <%=dob%></p>
 	<p><a href = "<%=photo_url%>"> photos of actor </a></p>
 	
-	<% Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
+	<% Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "root", "root");
 	Star star = new Star();
 	Statement statement = connection.createStatement();
 	String query = "SELECT DISTINCT * FROM movies m LEFT OUTER JOIN stars_in_movies s ON movie_id=m.id  WHERE star_id=" + id + "";
 	ResultSet result = statement.executeQuery(query); %>
 		
-	<h1>MOVIES WITH STAR</h1>
+	<h1><font size="5">MOVIES WITH STAR</font></h1>
 	<% while(result.next()) { %>
  		<p> <a href="movieinfo.jsp?id=<%=result.getString("id")%>&title=<%= result.getString("title")%>"><%= result.getString("title") %> </a></p>
 	<% } %>
-	
-	<h2>Back to MovieList</h2>
+	<br>
+	<br>
+	<br>
+	<p><a href="mainpage.html">Back to Search/Browse</a></p>
 	<p> <a href="movielist.jsp"></a></p>
 </body>
 </html>
