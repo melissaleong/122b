@@ -39,7 +39,7 @@ public class CartPages extends HttpServlet {
 		response.setContentType("text/html");
 		HttpSession mySession = request.getSession();
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
 			cartSession cart= (cartSession) mySession.getAttribute("cart_session");
 			String movieId = request.getParameter("id");
 			String requestType = request.getParameter("request").toLowerCase();
@@ -90,6 +90,7 @@ public class CartPages extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
 	public Movie getMovie(String input, Connection connection) {
 		Movie movie = new Movie();
 		

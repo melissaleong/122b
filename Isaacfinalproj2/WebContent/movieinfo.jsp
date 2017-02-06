@@ -7,7 +7,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>movie info</title>
-<style>body {background-color : DarkSalmon}</style>
+<style>
+        	body {background-color : #ADD8E6}
+        	body {font-family:Arial}
+</style>
 
 </head>
 <body>

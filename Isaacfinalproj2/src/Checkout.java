@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -38,6 +39,7 @@ public class Checkout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		HttpSession mySession = request.getSession();
+		PrintWriter out = response.getWriter();
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
 			String cc_id= request.getParameter("CCnum");
@@ -96,7 +98,7 @@ public class Checkout extends HttpServlet {
 						
 					}
 				} else {
-					System.out.println("failed");
+					out.println("Invalid information");
 					request.getRequestDispatcher("customerinfo.html").forward(request, response);
 				}
 		} catch (SQLException e) {

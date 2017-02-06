@@ -8,7 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Search Results</title>
 <style>
-        	body {background-color : DarkSalmon}
+        	body {background-color : #ADD8E6}
+        	body {font-family:Arial}
 </style>
 </head>
 <body>

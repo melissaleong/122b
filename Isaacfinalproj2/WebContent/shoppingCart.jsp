@@ -8,7 +8,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Shopping Cart</title>
 <style> 
-	body {background-color : DarkSalmon}
+
+    body {background-color : #ADD8E6}
+    body {font-family:Arial}
 	h4 {font-size: 200%;}	
 	td {border: 1px solid black}
 	h1 {text-align: center}
@@ -50,5 +52,6 @@
 				</td>
 			</tr>
 		</table>
+		<a href="mainpage.html">Return to Browse/Search</a>
 </body>
 </html>

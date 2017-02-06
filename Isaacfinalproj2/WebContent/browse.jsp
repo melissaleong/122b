@@ -8,9 +8,11 @@
 		<title>Browse</title>
 	</head>
 	<style> 
-	       	body {background-color : DarkSalmon;
+        	body {background-color : #ADD8E6}
 	       			text-align: center;}
 	       	h1 {text-align : center;}
+	       	body {font-family:Arial}
+	       	
 	       	
 	</style>
 	<body>
@@ -27,7 +29,7 @@
 		
 		<form action="BrowseByGenre">
 			Genre:<select name="genre">
-				<%Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
+				<%Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
 				String query = "SELECT name FROM genres ORDER BY name";
 				Statement statement = connection.createStatement();
 				ResultSet result = statement.executeQuery(query);

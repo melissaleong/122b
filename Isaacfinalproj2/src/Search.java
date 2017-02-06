@@ -18,7 +18,7 @@ public class Search extends HttpServlet {
 		System.out.println("Trying to connect...");
 		HttpSession mySession = request.getSession();
 		try{
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "isinger", "pi3zza");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
 			
 			 
 			int page = 1;
