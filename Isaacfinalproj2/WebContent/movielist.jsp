@@ -10,9 +10,11 @@
 <style>
         	body {background-color : #ADD8E6}
         	body {font-family:Arial}
+        	h2 {text-align : right}
 </style>
 </head>
 <body>
+	<h2><a href="shoppingCart.jsp">Shopping Cart</a></h2>
  	<table style="width:100%" border="1">
 		<h1>Found ${movieListSize} result(s). </h1>
 		<tr>

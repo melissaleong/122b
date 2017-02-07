@@ -8,11 +8,13 @@
 <style>
         	body {background-color : #ADD8E6}
         	body {font-family:Arial}
+        	h2 {text-align : right}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>CheckoutConfirmation</title>
 </head>
 <Body BGCOLOR = "#F1948A"></Body>
+<h2><a href="shoppingCart.jsp">Shopping Cart</a></h2>
 <div id="main_content">
 <%
 	if ((Customer) request.getSession().getAttribute("valid_customer") == null)

@@ -70,7 +70,7 @@ public class Pages extends HttpServlet {
 		List<Movie> movieList = new ArrayList<Movie>();
 		
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root1234");
 
 			Statement statement = connection.createStatement();
 			String query = searchQuery;

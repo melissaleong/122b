@@ -10,13 +10,15 @@
 <style>
         	body {background-color : #ADD8E6}
         	body {font-family:Arial}
+        	h1 {text-align : right}
 </style>
 
 </head>
 <body>
-	<h1> <font size="7"><u><%= request.getParameter("title")%></u></font></h1>
-	<h2> <font size="5">STARS IN MOVIE</font></h2>
-	<% Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "root", "root");
+	<h1><a href="shoppingCart.jsp">Shopping Cart</a> </h1>
+	<h2> <font size="7"><u><%= request.getParameter("title")%></u></font></h2>
+	<h3> <font size="5">STARS IN MOVIE</font></h3>
+	<% Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "root", "root1234");
 	Star star = new Star();
 	Statement statement = connection.createStatement();
 	String query = "SELECT DISTINCT * FROM stars s LEFT OUTER JOIN stars_in_movies sm ON sm.star_id=s.id where sm.movie_id = " + request.getParameter("id");
@@ -45,7 +47,7 @@
 	<%for (String g : genre_list) {%>
 		<a href="BrowseByGenre?genre=<%=g %>"> <%=g%> </a><br><br>
 	<%}%>
-	<h3><font size="5">MORE INFO</font></h3>
+	<h5><font size="5">MORE INFO</font></h5>
 	
 	<% String query2 = "SELECT * FROM movies WHERE id = " + request.getParameter("id"); 
 	ResultSet rs = statement.executeQuery(query2); 

@@ -19,7 +19,7 @@ public class BrowseByGenre extends HttpServlet {
 		HttpSession mySession = request.getSession();
 		
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root1234");
 			
 			String genre = request.getParameter("genre");
 			

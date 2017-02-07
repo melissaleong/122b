@@ -12,10 +12,13 @@
 	       			text-align: center;}
 	       	h1 {text-align : center;}
 	       	body {font-family:Arial}
+	       	h2 {text-align : right}
 	       	
 	       	
 	</style>
 	<body>
+		<h2><a href="shoppingCart.jsp">Shopping Cart</a></h2>
+	
 		<h1>By Title or Genre?</h1>
 		<form action="BrowseByTitle" method="post">
 			Title:<input type="text" name="title"/>
@@ -29,7 +32,7 @@
 		
 		<form action="BrowseByGenre">
 			Genre:<select name="genre">
-				<%Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
+				<%Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root1234");
 				String query = "SELECT name FROM genres ORDER BY name";
 				Statement statement = connection.createStatement();
 				ResultSet result = statement.executeQuery(query);

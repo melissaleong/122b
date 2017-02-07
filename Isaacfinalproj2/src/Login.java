@@ -43,7 +43,7 @@ public class Login extends HttpServlet {
 		try {
 //			System.out.printf("%s %s", email, password);
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root1234");
 			Statement select = connection.createStatement();
 			String query = "SELECT * FROM customers WHERE email='" + email + "' AND password='" + password + "'";
 			ResultSet check = select.executeQuery(query);

@@ -41,7 +41,7 @@ public class Checkout extends HttpServlet {
 		HttpSession mySession = request.getSession();
 		PrintWriter out = response.getWriter();
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root1234");
 			String cc_id= request.getParameter("CCnum");
 			String f_name= request.getParameter("firstname");
 			String l_name= request.getParameter("lastname");

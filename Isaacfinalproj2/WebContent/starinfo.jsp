@@ -10,9 +10,12 @@
 <style>
         	body {background-color : #ADD8E6}
         	body {font-family:Arial}
+        	h3 {text-align:right}
 </style>
 </head>
 <body>
+	<h3><a href="shoppingCart.jsp">Shopping Cart</a></h3>
+
 	<% String fn = request.getParameter("fn");
 	String ln = request.getParameter("ln");
 	String id = request.getParameter("id");
@@ -25,7 +28,7 @@
 	<p>Date of Birth: <%=dob%></p>
 	<p><a href = "<%=photo_url%>"> photos of actor </a></p>
 	
-	<% Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "root", "root");
+	<% Connection connection = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "root", "root1234");
 	Star star = new Star();
 	Statement statement = connection.createStatement();
 	String query = "SELECT DISTINCT * FROM movies m LEFT OUTER JOIN stars_in_movies s ON movie_id=m.id  WHERE star_id=" + id + "";
