@@ -12,23 +12,19 @@ import java.util.*;
  */
 public class Search extends HttpServlet {
 //	private static final long serialVersionUID = 1L;
-
-	private int numOfMovies=0;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		System.out.println("Trying to connect...");
 		HttpSession mySession = request.getSession();
 		try{
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root1234");
 			
-			List<Movie> movieList;
+			 
 			int page = 1;
-			int moviesPerPage = 10;
 			if (request.getParameter("page")!= null){
 				page = Integer.parseInt(request.getParameter("page"));
 			}
-			int offset = (page-1)*moviesPerPage;
 			
 			String title = request.getParameter("title");
 			String year = request.getParameter("yearinput");
@@ -41,16 +37,13 @@ public class Search extends HttpServlet {
 				System.out.println(s);
 			}
 			
-			movieList = getMovieList(queryInputs, connection, offset, moviesPerPage);
+			List<Movie> movieList = getMovieList(queryInputs, connection);
 			
-			System.out.println(movieList.size());
-			
-			int numOfPages = (int) Math.ceil((numOfMovies * 1.0)/ moviesPerPage);
+			System.out.println(movieList.size());			
 			
 			request.setAttribute("page", page);
 			request.setAttribute("movieList", movieList);
-			request.setAttribute("numOfPages", numOfPages);
-			request.setAttribute("movieListSize", numOfMovies);
+			request.setAttribute("movieListSize", movieList.size());
 			request.getRequestDispatcher("movielist.jsp").forward(request, response);
 			
 		} catch (Exception e){
@@ -68,7 +61,7 @@ public class Search extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	public List<Movie> getMovieList(String[] queryInputs, Connection connection, int offset, int moviesPerPage) {
+	public List<Movie> getMovieList(String[] queryInputs, Connection connection) {
 		List<Movie> movieList = new ArrayList<Movie>();
 		
 		try {
@@ -81,14 +74,8 @@ public class Search extends HttpServlet {
 			query = createStringQuery(query, queryInputs);//for total results
 			ResultSet result = statement.executeQuery(query);
 			movieList = BrowseByTitle.returnMovieList(result, connection);
-			numOfMovies = movieList.size();
-
-			query = createPageStringQuery(query, offset, moviesPerPage); //attempts to implement pagination here
-			result = statement.executeQuery(query);			
-			
-			movieList = BrowseByTitle.returnMovieList(result, connection);
-			
-			
+			MovieList storedMovieList = new MovieList(movieList, query);
+					
 			result.close();
 			statement.close();
 			connection.close();
@@ -175,11 +162,11 @@ public class Search extends HttpServlet {
 		return result;
 	}
 	
-	private String createPageStringQuery(String query, int offset, int moviesPerPage){
-		String result = query;
-		result = query + " LIMIT " + moviesPerPage + " OFFSET " + offset;
-		return result;
-	}
+//	private String createPageStringQuery(String query, int offset, int moviesPerPage){
+//		String result = query;
+//		result = query + " LIMIT " + moviesPerPage + " OFFSET " + offset;
+//		return result;
+//	}
 	
 	//populates the hashmap that will be used to create the rest of the query after WHERE
 	private Map<QueryField, String> populateHashMap(Map<QueryField, String> queryItems, String[] queryInputs){ 

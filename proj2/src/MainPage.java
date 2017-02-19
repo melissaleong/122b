@@ -19,6 +19,10 @@ public class MainPage extends HttpServlet {
 			response.sendRedirect("browse.jsp");
 //			request.getRequestDispatcher("browsing.html").forward(request, response);
 		}
+		
+		if (request.getParameter("Search") != null){
+			response.sendRedirect("search.html");
+		}
 //		request.getRequestDispatcher("mainpage.html").forward(request, response);
 	}
 	

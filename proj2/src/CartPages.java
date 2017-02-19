@@ -39,20 +39,19 @@ public class CartPages extends HttpServlet {
 		response.setContentType("text/html");
 		HttpSession mySession = request.getSession();
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root1234");
 			cartSession cart= (cartSession) mySession.getAttribute("cart_session");
 			String movieId = request.getParameter("id");
 			String requestType = request.getParameter("request").toLowerCase();
 			int quantity = 1;
-			
-			if (request.getParameter("quantity") != null || request.getParameter("quantity")!="" )
-			{	
-				try{
-					quantity = Integer.parseInt(request.getParameter("quantity"));
+			try{
+				if (request.getParameter("quantity") != null || request.getParameter("quantity")!="" )
+					{	quantity = Integer.parseInt(request.getParameter("quantity"));
+				}
 				}catch(NumberFormatException ex){
 					ex.printStackTrace();
 				}
-			}
+			
 			
 			Movie movie = getMovie(movieId, connection);
 			if (requestType.equals("add_item"))
@@ -91,6 +90,7 @@ public class CartPages extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
 	public Movie getMovie(String input, Connection connection) {
 		Movie movie = new Movie();
 		

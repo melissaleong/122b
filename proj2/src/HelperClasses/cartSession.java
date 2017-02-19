@@ -25,8 +25,9 @@ public class cartSession {
 			if(quantity==0){
 				removeItem(movie);
 			}
+			if (quantity>=0){
 			exists.setQuantity(quantity);
-	
+		}
 		}
 	}
 	public void removeItem(Movie movie){
@@ -36,6 +37,7 @@ public class cartSession {
 	}
 	public void clearall(){
 		cartItem.clear();
+		cartItem =new HashMap<Integer, Cart>();
 	}
 	public ArrayList<Cart> returnitems(){
 		return new ArrayList<Cart>(cartItem.values());

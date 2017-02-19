@@ -3,6 +3,7 @@ package HelperClasses;
 public class Cart {
 	private Movie movie;
 	private int quantity;
+	public Cart(){}
 	public Cart(Movie movie,int quantity){
 		super();
 		this.movie=movie;

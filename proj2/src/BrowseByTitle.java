@@ -11,29 +11,28 @@ import java.util.*;
  * Servlet implementation class Browse
  */
 public class BrowseByTitle extends HttpServlet {
-
+	
+	int numOfMovies=0;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-
-		
 		response.setContentType("text/html");
 		HttpSession mySession = request.getSession();
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
-			
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root1234");
+			int page = 1;
+			int moviesPerPage = 10;
+			if (request.getParameter("page")!= null){
+				page = Integer.parseInt(request.getParameter("page"));
+			}
+
 			String title = request.getParameter("title");
-			
+
+
 			List<Movie> movieList = getMovieList(title, connection);
 			
-			
-//			for (int i = 0; i < movieList.size(); ++i) {
-//				for(int j = 0; j<movieList.get(i).starsInMovie.size(); ++j) {
-//					System.out.println(movieList.get(i).starsInMovie.get(j).fn);
-//				}
-//			}
-			
+
+			request.setAttribute("page", page);
 			request.setAttribute("movieList", movieList);
 			request.setAttribute("movieListSize", movieList.size());
 			request.getRequestDispatcher("movielist.jsp").forward(request, response);
@@ -57,10 +56,17 @@ public class BrowseByTitle extends HttpServlet {
 		try {
 			Statement statement = connection.createStatement();
 			String query = "SELECT DISTINCT * FROM movies where title like '%" + input + "%'";
+			System.out.println(query);
 			ResultSet result = statement.executeQuery(query);
 			
 			movieList = BrowseByTitle.returnMovieList(result, connection);
-			
+			MovieList storedMovieList = new MovieList(movieList, query);
+//			numOfMovies = movieList.size();
+//			
+//			query = createPageStringQuery(query); //attempts to implement pagination here
+//			result = statement.executeQuery(query);			
+//			
+//			movieList = BrowseByTitle.returnMovieList(result, connection);
 			result.close();
 			statement.close();
 			connection.close();
@@ -73,7 +79,11 @@ public class BrowseByTitle extends HttpServlet {
 		
 	}
 	
-	
+//	private String createPageStringQuery(String query, int offset, int moviesPerPage){ //use later
+//		String result = query;
+//		result = query + " LIMIT " + moviesPerPage + " OFFSET " + offset;
+//		return result;
+//	}
 	
 	public static List<Movie> returnMovieList(ResultSet result, Connection connection) {
 		List<Movie> movieList = new ArrayList<Movie>();

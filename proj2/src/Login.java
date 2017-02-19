@@ -23,10 +23,11 @@ public class Login extends HttpServlet {
 				
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
-		if(checkUser(email, password)) {
+		Customer check= checkUser(email, password);
+		if(check!=null) {
 //			response.sendRedirect(request.getContextPath() + "/mainpage.html");
 			mySession.setAttribute("cart_session", new cartSession());
+			mySession.setAttribute("valid_customer",check );
 			response.sendRedirect("mainpage.html");
 
 		}
@@ -36,25 +37,28 @@ public class Login extends HttpServlet {
 		}
 	}
 	
-	public boolean checkUser(String email, String password) {
+	public static Customer checkUser(String email, String password) {
 
-		boolean answer = false;
+		Customer valid_customer= null;
 		try {
 //			System.out.printf("%s %s", email, password);
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root1234");
 			Statement select = connection.createStatement();
 			String query = "SELECT * FROM customers WHERE email='" + email + "' AND password='" + password + "'";
 			ResultSet check = select.executeQuery(query);
 			
-			answer = check.next();
+			if(check.next()){
+				valid_customer = new Customer(check.getInt(1),check.getString(2),check.getString(3),check.getString(4), check.getString(5),check.getString(6),check.getString(7));
+				
+			}
+			return valid_customer;
 //			System.out.println(answer);
-			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return answer;
+		return valid_customer;
 	}
 
 }
