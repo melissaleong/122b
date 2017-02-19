@@ -1,4 +1,5 @@
 
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -6,42 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.sql.*;
+
 /**
- * Servlet implementation class DashBoard
+ * Servlet implementation class GotoDash
  */
-@WebServlet("/DashBoard")
-public class DashBoard extends HttpServlet {
-
-    public DashBoard() {super();}
-
+@WebServlet("/GotoDash")
+public class GotoDash extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		HttpSession mySession = request.getSession();
-		
-		
-		if(request.getParameter("Star") != null) {
-			response.sendRedirect("insertstar.html");
-		}
-		
-		if (request.getParameter("MetaData") != null){
-			response.sendRedirect("metadata.jsp");
-		}
-		
-		if (request.getParameter("Movie")!=null){
-			response.sendRedirect("insertmovie.html");
-		}
-		if (request.getParameter("InsertMovieInfo")!=null){
-			response.sendRedirect("insertmovieinfo.html");
-		}
+		response.sendRedirect("emp.html");
+
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

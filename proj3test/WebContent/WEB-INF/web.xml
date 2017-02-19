@@ -85,7 +85,7 @@
     <servlet-name>Pages</servlet-name>
     <url-pattern>/Pages</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>InsertStar</display-name>
     <servlet-name>InsertStar</servlet-name>
@@ -95,4 +95,55 @@
     <servlet-name>InsertStar</servlet-name>
     <url-pattern>/InsertStar</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertMovieInfo</display-name>
+    <servlet-name>InsertMovieInfo</servlet-name>
+    <servlet-class>InsertMovieInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertMovieInfo</servlet-name>
+    <url-pattern>/InsertMovieInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InsertMovie</display-name>
+    <servlet-name>InsertMovie</servlet-name>
+    <servlet-class>InsertMovie</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InsertMovie</servlet-name>
+    <url-pattern>/InsertMovie</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GotoDash</display-name>
+    <servlet-name>GotoDash</servlet-name>
+    <servlet-class>GotoDash</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GotoDash</servlet-name>
+    <url-pattern>/_Dashboard</url-pattern>
+  </servlet-mapping>
+    <!-- Require HTTPS for everything except /img (favicon) and /css. -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOnly</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>HTTPSOrHTTP</web-resource-name>
+            <url-pattern>*.ico</url-pattern>
+            <url-pattern>/img/*</url-pattern>
+            <url-pattern>/css/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
 </web-app>

@@ -24,7 +24,6 @@ public class InsertStar extends HttpServlet {
 		response.setContentType("text/html");
 		HttpSession mySession = request.getSession();
 		try{
-			//System.out.println("First name: " + firstname + " Last name:  " + lastname + " dob: " + dob + " photoURL: " + photo_url);
 			Connection connection = Database.openConnection();
 
 			if (request.getParameter("firstname")=="" && request.getParameter("lastname")==""){
@@ -84,7 +83,7 @@ public class InsertStar extends HttpServlet {
 				prepState.execute();
 			}
 			
-			response.sendRedirect("insertstarconf.html");
+			response.sendRedirect("operationconf.html");
 
 			
 		} catch(Exception e){
@@ -93,9 +92,7 @@ public class InsertStar extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

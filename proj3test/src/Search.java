@@ -18,7 +18,6 @@ public class Search extends HttpServlet {
 		System.out.println("Trying to connect...");
 		HttpSession mySession = request.getSession();
 		try{
-//			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/moviedb?useSSL=false", "root", "root1234");
 			Connection connection = Database.openConnection();
 			
 			 
@@ -162,12 +161,6 @@ public class Search extends HttpServlet {
 				
 		return result;
 	}
-	
-//	private String createPageStringQuery(String query, int offset, int moviesPerPage){
-//		String result = query;
-//		result = query + " LIMIT " + moviesPerPage + " OFFSET " + offset;
-//		return result;
-//	}
 	
 	//populates the hashmap that will be used to create the rest of the query after WHERE
 	private Map<QueryField, String> populateHashMap(Map<QueryField, String> queryItems, String[] queryInputs){ 
