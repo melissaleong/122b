@@ -44,7 +44,7 @@ public class InsertMovie extends HttpServlet {
 			else{
 				System.out.println("movie does not exist, inserting...");
 
-				//insertData(connection, title, year, director, banner_url, trailer_url, firstname, lastname, genre);
+				insertData(connection, title, year, director, banner_url, trailer_url, firstname, lastname, genre);
 				response.sendRedirect("operationconf.html");
 			}
 			
