@@ -20,20 +20,30 @@ public class Login extends HttpServlet {
 		HttpSession mySession = request.getSession();
 		
 		PrintWriter out = response.getWriter();
-				
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		Customer check= checkUser(email, password);
-		if(check!=null) {
+		response.setContentType("text/html;charset=UTF-8");
+		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+		System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
+		// Verify CAPTCHA.
+		boolean valid = verify.verify(gRecaptchaResponse);
+		if (valid) {		
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			Customer check= checkUser(email, password);
+			if(check!=null) {
 //			response.sendRedirect(request.getContextPath() + "/mainpage.html");
 			mySession.setAttribute("cart_session", new cartSession());
 			mySession.setAttribute("valid_customer",check );
 			response.sendRedirect("mainpage.html");
 
+			}
+			else {
+				request.getRequestDispatcher("LoginFail.html").include(request, response);
+
+		}}else{
+			request.getRequestDispatcher("captchafail.html").include(request, response);
+
 		}
-		else {
-			request.getRequestDispatcher("LoginFail.html").include(request, response);
-		}
+
 	}
 	
 	public static Customer checkUser(String email, String password) {
