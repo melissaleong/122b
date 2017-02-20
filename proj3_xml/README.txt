@@ -1,6 +1,7 @@
 PROJECT 3 XML PARSING COMPILE GUIDE
 ===================================
-- inside the WAR should be a directory called proj3_xml. Go into that directory
+- on AWS
+	& cd /opt/tomcat/webapps/[whatever the war is called]/WEB-INF/lib
 - in the directory there should be a runnable jar called "proj3xml.jar" as well as the 3 xml files from the stanford movies directory
 	- in order to run the jar enter the following command
 
