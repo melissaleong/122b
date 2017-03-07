@@ -41,7 +41,7 @@ public class androidLogin extends HttpServlet {
 			String password = request.getParameter("password");
 			
 			int check= checkUser(email, password);
-			out.write("Email: " + email + "Password: " + password);
+			//out.write("Email: " + email + "Password: " + password);
 			if(check>0) {
 				out.write("success");
 			}
@@ -67,8 +67,8 @@ public class androidLogin extends HttpServlet {
 
 			Connection connection = Database.openConnection();
 			Statement select = connection.createStatement();
-			//String query = "SELECT COUNT(*) FROM customers WHERE email='" + email + "' AND password='" + password + "'";
-			String query = "SELECT COUNT(*) FROM customers";
+			String query = "SELECT COUNT(*) FROM customers WHERE email='" + email + "' AND password='" + password + "'";
+			//String query = "SELECT COUNT(*) FROM customers";
 			ResultSet check = select.executeQuery(query);
 			num = check.getInt(1);
 			connection.close();
