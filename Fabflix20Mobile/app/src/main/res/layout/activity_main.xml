@@ -17,4 +17,37 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="94dp"
         android:id="@+id/userdisplay" />
+
+    <TextView
+        android:id="@+id/Welcome_Message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/userdisplay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
+        android:text="Welcome to Fabflix 20. Please Enter movie that you want to search."
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/movie_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userdisplay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Movie"
+        android:inputType="text" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/search_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/movie_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:text="SEARCH" />
+
 </RelativeLayout>

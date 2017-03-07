@@ -3,7 +3,6 @@
   <welcome-file-list>
     <welcome-file></welcome-file>
   </welcome-file-list>
-
   <servlet>
     <description></description>
     <display-name>androidLogin</display-name>
@@ -13,7 +12,15 @@
   <servlet-mapping>
     <servlet-name>androidLogin</servlet-name>
     <url-pattern>/androidLogin</url-pattern>
-  </servlet-mapping>  
-  
-  
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>androidSearch</display-name>
+    <servlet-name>androidSearch</servlet-name>
+    <servlet-class>androidSearch</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>androidSearch</servlet-name>
+    <url-pattern>/androidSearch</url-pattern>
+  </servlet-mapping>
 </web-app>
