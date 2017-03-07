@@ -41,17 +41,15 @@ public class androidLogin extends HttpServlet {
 			String password = request.getParameter("password");
 			
 			int check= checkUser(email, password);
-			out.write("Number: " + check);
-			if(check>=1) {
+			out.write("Email: " + email + "Password: " + password);
+			if(check>0) {
 				out.write("success");
 			}
 			else{
-				//out.write(email + " " + password);
 				out.write("fail");
 			}
 			out.flush();
 			out.close();
-			//response.sendRedirect("success.html");
 	
 		}catch(Exception e){
 			try{
@@ -69,7 +67,8 @@ public class androidLogin extends HttpServlet {
 
 			Connection connection = Database.openConnection();
 			Statement select = connection.createStatement();
-			String query = "SELECT COUNT(*) FROM customers WHERE email='" + email + "' AND password='" + password + "'";
+			//String query = "SELECT COUNT(*) FROM customers WHERE email='" + email + "' AND password='" + password + "'";
+			String query = "SELECT COUNT(*) FROM customers";
 			ResultSet check = select.executeQuery(query);
 			num = check.getInt(1);
 			connection.close();
