@@ -40,9 +40,9 @@ public class androidLogin extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			
-			int check= checkUser(email, password);
+			Customer check= checkUser(email, password);
 			//out.write("Email: " + email + "Password: " + password);
-			if(check>0) {
+			if(check!=null) {
 				out.write("success");
 			}
 			else{
@@ -61,23 +61,25 @@ public class androidLogin extends HttpServlet {
 		}
 	}
 	
-	public static int checkUser(String email, String password) {
-		int num=0;
+	public static Customer checkUser(String email, String password) {
+
+		Customer valid_customer= null;
 		try {
 
 			Connection connection = Database.openConnection();
 			Statement select = connection.createStatement();
-			String query = "SELECT COUNT(*) FROM customers WHERE email='" + email + "' AND password='" + password + "'";
-			//String query = "SELECT COUNT(*) FROM customers";
+			String query = "SELECT * FROM customers WHERE email='" + email + "' AND password='" + password + "'";
 			ResultSet check = select.executeQuery(query);
-			num = check.getInt(1);
+			
+			if(check.next()){
+				valid_customer = new Customer(check.getInt(1),check.getString(2),check.getString(3),check.getString(4), check.getString(5),check.getString(6),check.getString(7));
+			}
 			connection.close();
-			return num;
-
+			return valid_customer;
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return num;
+		return valid_customer;
 	}
 }

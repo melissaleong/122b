@@ -37,8 +37,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
     private AppCompatButton loginButton;
     private EditText username;
     private EditText password;
-    private String err = "Missing username or password. Please Try again.";
-    private String err2 = "Incorrect username or password. Please Try again.";
+    private String err = "Incorrect username or password. Please Try again.";
 
     private boolean loggedin = false;
     @Override
@@ -79,17 +78,18 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
         RequestQueue queue = Volley.newRequestQueue(this);
 
         final Context context = this;
-        String url ="http://52.11.120.68:8080/Android/androidLogin";
+        String url ="http://52.11.120.68:8080/Androidtest/androidLogin";
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
                     @Override
                     public void onResponse(String response) {
-                        System.out.println(response);
-                        if (response.equals(Config.LOGIN_SUCCESS)) {
+                        String resp = response;
+                        System.out.println(resp);
+                        if (resp.equals(Config.LOGIN_SUCCESS)) {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else{
-                            System.out.println("Failure");
+                            ((TextView)findViewById(R.id.login_message)).setText(err);
                         }
                     }
                 },
