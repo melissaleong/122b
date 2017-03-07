@@ -5,7 +5,7 @@ package com.example.isaac.fabflix20mobile;
  */
 
 public class Config {
-    public static final String LOGIN_URL = "https://52.11.120.68:8443/proj4aws/androidLogin";
+    public static final String LOGIN_URL = "52.11.120.68:8080/Android/androidLogin";
 
     //Keys for email and password as defined in our $_POST['key'] in login.php
     public static final String KEY_EMAIL = "email";

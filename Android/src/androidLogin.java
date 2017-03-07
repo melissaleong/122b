@@ -27,8 +27,7 @@ public class androidLogin extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
 	}
 
 
@@ -41,74 +40,45 @@ public class androidLogin extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			
-			Customer check= checkUser(email, password);
-			if(check!=null) {
-				out.write("true");
-
+			int check= checkUser(email, password);
+			out.write("Number: " + check);
+			if(check>=1) {
+				out.write("success");
 			}
 			else{
-				out.write("false");
+				//out.write(email + " " + password);
+				out.write("fail");
 			}
 			out.flush();
 			out.close();
-//			int length = request.getContentLength();
-//			byte[] input = new byte[length];
-//			
-//			ServletInputStream in = request.getInputStream();
-//			
-//			int c, count =0;
-//			while ((c =in.read(input, count, input.length-count))!=-1){
-//				count+=c;
-//			}
-//			in.close();
-//			
-//			String receivedString = new String(input);
-//			response.setStatus(HttpServletResponse.SC_OK);
-//			OutputStreamWriter writer = new OutputStreamWriter(response.getOutputStream());
-//			
-//			String[] values = receivedString.split(" ");
-//			
-//			Customer check = checkUser(values[0], values[1]);
-//			
-//			if (check!=null){
-//				writer.write("true");
-//			}else{
-//				writer.write("false");
-//			}
-//			writer.flush();
-//			writer.close();
-//			
+			//response.sendRedirect("success.html");
+	
 		}catch(Exception e){
 			try{
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().print(e.getMessage());
+			e.printStackTrace();
+            response.getWriter().print("some error happened here");
             response.getWriter().close();
 			}catch(IOException ioe){
 			}
 		}
-
 	}
-
-	public static Customer checkUser(String email, String password) {
-
-		Customer valid_customer= null;
+	
+	public static int checkUser(String email, String password) {
+		int num=0;
 		try {
 
 			Connection connection = Database.openConnection();
 			Statement select = connection.createStatement();
-			String query = "SELECT * FROM customers WHERE email='" + email + "' AND password='" + password + "'";
+			String query = "SELECT COUNT(*) FROM customers WHERE email='" + email + "' AND password='" + password + "'";
 			ResultSet check = select.executeQuery(query);
-			
-			if(check.next()){
-				valid_customer = new Customer(check.getInt(1),check.getString(2),check.getString(3),check.getString(4), check.getString(5),check.getString(6),check.getString(7));
-			}
+			num = check.getInt(1);
 			connection.close();
-			return valid_customer;
-//			System.out.println(answer);
+			return num;
+
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return valid_customer;
+		return num;
 	}
 }

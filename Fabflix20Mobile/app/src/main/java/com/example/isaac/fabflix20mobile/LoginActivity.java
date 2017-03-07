@@ -33,8 +33,8 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends Activity implements  View.OnClickListener{
-    private Button loginButton;
+public class LoginActivity extends AppCompatActivity implements  View.OnClickListener{
+    private AppCompatButton loginButton;
     private EditText username;
     private EditText password;
     private String err = "Missing username or password. Please Try again.";
@@ -49,7 +49,7 @@ public class LoginActivity extends Activity implements  View.OnClickListener{
         username = (EditText) findViewById(R.id.email_input);
         password = (EditText) findViewById(R.id.password_input);
 
-        loginButton = (Button) findViewById(R.id.login_button);
+        loginButton = (AppCompatButton) findViewById(R.id.login_button);
 
         loginButton.setOnClickListener(this);
     }
@@ -69,57 +69,55 @@ public class LoginActivity extends Activity implements  View.OnClickListener{
 
     }
 
-    private void login(){
+    private void login(View view){
 
         final String inputUsername = username.getText().toString();
         final String inputPassword = password.getText().toString();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL,
+        final Map<String,String> params = new HashMap<String, String>();
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        final Context context = this;
+        String url ="http://52.11.120.68:8080/Android/androidLogin";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
                     @Override
-                    public void onResponse(String response){
-                        if(response.equals(Config.LOGIN_SUCCESS)){
-                            SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                            editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
-                            editor.putString(Config.EMAIL_SHARED_PREF, inputUsername);
-
-                            editor.commit();
-
+                    public void onResponse(String response) {
+                        System.out.println(response);
+                        if (response.equals(Config.LOGIN_SUCCESS)) {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
-                        }
-                        else{
-                            ((TextView) findViewById(R.id.login_message)).setText(err2);
+                        } else{
+                            System.out.println("Failure");
                         }
                     }
                 },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-
+                    new Response.ErrorListener(){
+                        @Override
+                        public void onErrorResponse(VolleyError e){
+                            e.printStackTrace();
+                        }
                     }
-                }){
+                ) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError{
-                Map<String,String> params = new HashMap<>();
-                //Adding parameters to request
+            protected Map<String, String> getParams(){
                 params.put(Config.KEY_EMAIL, inputUsername);
                 params.put(Config.KEY_PASSWORD, inputPassword);
-
-                //returning parameter
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        //System.out.println(postRequest.getUrl());
+        queue.add(postRequest);
+        return;
+
     }
 
 
     @Override
     public void onClick(View view){
-        login();
+        //System.out.println("Clicked");
+        login(view);
     }
 
 }
