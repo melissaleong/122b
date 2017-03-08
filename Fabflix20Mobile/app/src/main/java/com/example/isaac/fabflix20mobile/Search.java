@@ -28,11 +28,4 @@ public class Search extends AppCompatActivity {
 
     }
 
-//    private String[] arrayListtoArray(ArrayList<String> movieList){
-//        String[] result = new String[movieList.size()];
-//        for (int i = 0; i<movieList.size();i++){
-//            result[i] = movieList.get(i);
-//        }
-//        return result;
-//    }
 }

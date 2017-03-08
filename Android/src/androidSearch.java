@@ -28,7 +28,8 @@ public class androidSearch extends HttpServlet {
 		try{
 			PrintWriter out  = response.getWriter();
 			String movie = request.getParameter("movie");
-			String movieList = getMovieList(movie);
+			String searchType = request.getParameter("searchType");
+			String movieList = getMovieList(movie, searchType);
 			
 			out.write(movieList);
 			
@@ -45,14 +46,28 @@ public class androidSearch extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private String getMovieList(String movie){
+	private String getMovieList(String movie, String searchType){
 		String movieList = "";
-		//todo use full text search sql statements
 		try {
 
 			Connection connection = Database.openConnection();
 			Statement select = connection.createStatement();
-			String query = "SELECT title FROM movies WHERE title like '%" + movie + "%'";
+			//String query = "SELECT title FROM movies WHERE title like '%" + movie + "%'";
+			String query = "";
+			if (searchType.equals("fulltext")){
+				query = "SELECT DISTINCT title FROM movies WHERE MATCH(title) AGAINST('";
+				String[] pieces = movie.split(" ");
+	
+				query += "+" + pieces[0] + "*";
+				for (int i = 1; i < pieces.length; ++i) {
+					query += " +" + pieces[i] + "*";
+				}
+				query += "' IN BOOLEAN MODE)";
+			} else{
+				query = "SELECT title FROM movies WHERE title like '%" + movie + "%'";
+
+			}
+			
 			ResultSet result = select.executeQuery(query);
 			while (result.next()){
 				movieList = movieList +result.getString(1) + " \n ";

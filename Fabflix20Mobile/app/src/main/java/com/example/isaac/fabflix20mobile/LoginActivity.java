@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements  View.OnClickLis
         RequestQueue queue = Volley.newRequestQueue(this);
 
         final Context context = this;
-        String url ="http://52.11.120.68:8080/Android/androidLogin";
+        String url ="http://52.11.120.68:8080/fabflix_webapp/androidLogin";
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
                     @Override

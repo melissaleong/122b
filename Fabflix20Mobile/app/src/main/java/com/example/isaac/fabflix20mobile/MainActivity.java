@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText movie;
     private AppCompatButton searchButton;
+    private String searchType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         movie = (EditText) findViewById(R.id.movie_input);
         searchButton = (AppCompatButton) findViewById(R.id.search_button);
+
+        ToggleButton toggle = (ToggleButton) findViewById(R.id.search_mode);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    searchType= "pattern";
+                }
+                else{
+                    searchType="fulltext";
+                }
+            }
+        });
 
         searchButton.setOnClickListener(this);
     }
@@ -44,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url ="http://52.11.120.68:8080/Android/androidSearch";
+        String url ="http://52.11.120.68:8080/fabflix_webapp/androidSearch";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
@@ -70,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             protected Map<String,String> getParams(){
                 params.put("movie", movieInput);
+                params.put("searchType", searchType);
                 return params;
             }
         };
