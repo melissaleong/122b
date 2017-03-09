@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private EditText movie;
     private AppCompatButton searchButton;
-    private String searchType;
+    private String searchType="fulltext";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
