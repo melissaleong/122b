@@ -1,0 +1,51 @@
+Unscaled
+=========================================
+1 Thread 
+--------
+JDBC Average Time: 1408869.1434519303
+Servlet Average Time: 1148613.3111279334
+
+10 Threads
+----------
+JDBC Average Time: 1664011.021969697
+Servlet Average Time: 1345644.106439394
+
+10 Threads HTTPS
+----------------
+JDBC Average Time: 2637943.9424460432
+Servlet Average Time: 1779276.9276789096
+
+10 Threads w/o Prepared Statements
+----------------------------------
+JDBC Average Time: 1242575.4973484848
+Servlet Average Time: 206642.1178030303
+
+10 Theads w/o Pooling 
+---------------------
+JDBC Average Time: 8387789.1447522435
+Servlet Average Time: 3366867.436597737
+
+Scaled
+========================================
+
+1 Thread
+--------
+JDBC Average Time: 1421185.3166855846
+Servlet Average Time: 1123532.659477866
+
+10 Threads
+----------
+JDBC Average Time: 2464031.4897727272
+Servlet Average Time: 1732483.853030303
+
+10 Threads w/o Prepared Statements
+----------------------------------
+JDBC Average Time: 2339805.3295454546
+Servlet Average Time: 1665828.5712121213
+
+10 Treads w/o Pooling
+---------------
+JDBC Average Time: 5785217.442424242
+Servlet Average Time: 2733955.350378788
+
+

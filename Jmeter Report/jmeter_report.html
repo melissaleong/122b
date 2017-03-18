@@ -1,0 +1,134 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-color: linen;
+}
+
+td {
+    border-top-style: solid;
+}
+</style>
+</head>
+<body>
+
+<table style="width:100%">
+  <tr style="font-weight:bold; background-color: orange">
+    <td width="300px">Single-instance version cases</td>
+    <td>Graph Results Screenshot</td>
+    <td>Average Query Time(ms)</td>
+    <td>Average Search Servlet Time(ms)</td>
+    <td>Average JDBC Time(ms)</td>
+    <td>Analysis</td>
+  </tr>
+  <tr>
+    <td>Case 1: HTTP/1 thread</td>
+    <td><img src="images/graph_results_case1.png" alt="Graph Results Screenshot Case 1" style="width:304px;height:228px;"></td>
+    <td>48</td>
+    <td>1.148613</td>
+    <td>1.408869</td>
+    <td>The average query time for 1 thread in the non-scaled instance was the fastest out of all the tests we ran in the non-scaled instance, which was expected. 
+	Compared to the scaled 1 tread test, this test ran a faster Search Servlet time, but a slightly slower JDBC time, which is very intersting to see. 
+	</td>
+  </tr>
+  <tr>
+    <td>Case 2: HTTP/10 threads</td>
+    <td><img src="images/graph_results_case2.png" alt="Graph Results Screenshot Case 2" style="width:304px;height:228px;"></td>
+    <td>53</td>
+    <td>1.345644</td>
+    <td>1.664011</td>
+    <td>As expected, all of the average times for query, Search servlet, and JDBC all rose. This is expected because more threads 
+	are coming through. 
+	</td>
+  </tr>
+  <tr>
+    <td>Case 3: HTTPS/10 threads</td>
+    <td><img src="images/graph_results_case3.png" alt="Graph Results Screenshot Case 3" style="width:304px;height:228px;"></td>
+    <td>48</td>
+    <td>1.779276</td>
+    <td>2.637943</td>
+    <td>Running on HTTPS increased the time it took for both JDBC and the Search Servlet times. 
+	However, the average query time ended up being faster. 
+	</td>
+  </tr>
+  <tr>
+    <td>Case 4: HTTP/10 threads/No prepared statements</td>
+    <td><img src="images/graph_results_case4.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+    <td>46</td>
+    <td>2.06642</td>
+    <td>1.242575</td>
+    <td> Using no prepared statements significantly increased the Servlet time, however the JDBC time and query time ended up being faster
+	which was unexpected. 
+	</td>
+  </tr>
+  <tr>
+    <td>Case 5: HTTP/10 threads/No connection pooling</td>
+    <td><img src="images/graph_results_case5.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+    <td>54</td>
+    <td>3.366867</td>
+    <td>8.387789</td>
+    <td>Using no connection pooling significantly increased the JDBC time, which was expected. This increased the servlet time as well.
+	This test ended up having the worst results in the non-scaled instance. 
+	</td>
+  </tr>
+
+</table> 
+
+
+<table style="width:100%">
+  <tr style="font-weight:bold; background-color: orange">
+    <td width="300px">Scaled version cases</td>
+    <td>Graph Results Screenshot</td>
+    <td>Average Query Time(ms)</td>
+    <td>Average Search Servlet Time(ms)</td>
+    <td>Average JDBC Time(ms)</td>
+    <td>Analysis</td>
+  </tr>
+  <tr>
+    <td>Case 1: HTTP/1 thread</td>
+    <td><img src="images/graph_results_case6.png" alt="Graph Results Screenshot Case 1" style="width:304px;height:228px;"></td>
+    <td>48</td>
+    <td>1.123532</td>
+    <td>1.421185</td>
+    <td>The test on the scaled instance ended up with similar results to the non-scaled instance. The servlet search time is slightly
+	better, but the difference is too small to make a conclusion. 
+	</td>
+  </tr>
+  <tr>
+    <td>Case 2: HTTP/10 threads</td>
+    <td><img src="images/graph_results_case7.png" alt="Graph Results Screenshot Case 2" style="width:304px;height:228px;"></td>
+    <td>52</td>
+    <td>1.732483</td>
+    <td>2.464031</td>
+    <td>Both times for JDBC and Search Servlet time ended up being slower, which is expected since more threads are running. 
+	Surprisingly, the times are slower compared to the non-scaled instance times. 
+	</td>
+  </tr>
+  <tr>
+    <td>Case 3: HTTP/10 threads/No prepared statements</td>
+    <td><img src="images/graph_results_case8.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+    <td>52</td>
+    <td>1.665828</td>
+    <td>2.339805</td>
+    <td>Interestingly, the times for Search servlet and JDBC ended up being faster compared to the other cases in the scaled instance.
+	When compared to the non-scaled version of this test, the scaled version ended up being faster in Search Servlet time and slower in 
+	JDBC time. 
+	</td>
+  </tr>
+  <tr>
+    <td>Case 4: HTTP/10 threads/No connection pooling</td>
+    <td><img src="images/graph_results_case9.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+    <td>52</td>
+    <td>2.733955</td>
+    <td>5.785217</td>
+    <td>
+	Without connection pooling, the times for both JDBC and Search Servlet ended up being slower, but not as slow in the non-scaled instance test. 
+	Using a scaled instance probably helps decrease the amount of time spent in JDBC and Search servlet
+	</td>
+  </tr>
+
+</table> 
+
+</body>
+</html>
