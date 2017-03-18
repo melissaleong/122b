@@ -1,0 +1,142 @@
+<!-- <input type="text" list="languages" placeholder="e.g. datalist">
+
+<datalist id="languages">
+  <option value="HTML">
+  <option value="CSS">
+  <option value="JavaScript">
+  <option value="Java">
+  <option value="Ruby">
+  <option value="PHP">
+  <option value="Go">
+  <option value="Erlang">
+  <option value="Python">
+  <option value="C">
+  <option value="C#">
+  <option value="C++">
+</datalist> -->
+<!DOCTYPE html>
+<html>
+        <head>
+                
+            <meta charset="utf-8">
+            <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+            <title>Search Query</title>
+             <script src='https://www.google.com/recaptcha/api.js'></script>
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+
+            <link rel="stylesheet" href="css/bootstrap-theme.css">
+                <style>
+                #clear-box {
+                                padding: 20px;
+                                background: rgba(255,255,255,0.5);
+                                width: 640px;
+                                height: 550px;
+                                margin: auto;
+                                border-radius: 10px;
+                        }
+                </style>
+        
+        <script language ="javascript">
+                function ajaxFunction(value) {
+                        var ajaxRequest;
+                        
+                        try {
+                                ajaxRequest = new XMLHttpRequest();
+                        } catch (e) {
+                                alert("fail!");
+                                return false;
+                        }
+                        document.getElementById("datalist").innerHTML = "";
+                        var dataList = document.getElementById('datalist');
+                        /* clearChildren(dataList); */
+                        ajaxRequest.onreadystatechange = function() {
+                                if(ajaxRequest.readyState == 4) {
+                                        var data = ajaxRequest.responseText;
+
+                                        var str_array = data.split(";");
+                                        for(var i = 0; i < str_array.length; i++) {
+                                                var option = document.createElement('option');
+                                                option.value = str_array[i];
+                                                dataList.appendChild(option);
+                                        }
+                                        
+                                }
+                        }
+                        
+                        ajaxRequest.open("GET", "AjaxTest?text=" + value,true);
+                        ajaxRequest.send();
+                        
+                        
+
+                }
+               function clearChildren(parent_id) {
+                        var i;
+                        for(i = parent_id.options.length - 1; i >= 0; i--) {
+                                parent_id.remove(i);
+                        }
+                }
+                
+        </script>
+
+
+        </head>
+
+ 	<body>
+	
+	 	<nav class="navbar navbar-default container-fullwidth">
+			<div class="navbar-inner navbar-right">
+				<div class="navbar-header">
+					<a class="brand" href="#">FabFlix 20</a>
+				</div>
+				<ul class="nav navbar-nav pull-left">
+					<li><a href="mainpage.jsp">Home/Browse</a></li>
+					<li class="active"><a href="#">Advanced Search</a></li>
+				</ul>
+				
+				<form class="navbar-form pull-left" method = "get" action ="Search" name = "searchbar">
+					<input type="text" name="textsearch" id="ajax" list="datalist" placeholder="Movie Title" class="form-control" onkeyup="ajaxFunction(this.value);">
+					<datalist id="datalist">
+					</datalist>
+ 					<input type="submit" value="Search" class="btn btn-secondary">
+ 				</form>
+				
+				
+				<ul class="nav navbar-nav pull-right">
+					<li><a href="shoppingCart.jsp">Shopping Cart</a>
+				</ul>
+			</div>
+		</nav>
+		
+		<br>
+		<br>
+		<br>
+		
+		<div id="clear-box">
+			<h1>Advanced Movie Search</h1> <br><br>
+			<form method  = "post" action = "Search">
+			
+			<p>Title </p>
+			<input type="text" name="title" placeholder="e.g. Zootopia"/> <br>
+			
+			<p> Release Date </p>
+				<input type="text" name="yearinput" maxlength = 4 placeholder="Format: YYYY"/>  <br>
+			
+			<p> Director </p>
+				<input type="text" name="director" placeholder="e.g. Hitchcock"/><br>
+			
+			
+
+ 				Star First Name<br> <input type="text" name="firstname" placeholder="First Name"> <br> 
+				Star Last Name<br> <input type = "text" name="lastname" placeholder="Last Name"> <br>
+				<i>  Can use First name, Last name, or both </i> <br><br><br>
+			
+	
+				<INPUT TYPE = "submit" VALUE = "Search" class="btn btn-primary">
+	
+			
+			</form>
+			
+		</div>		
+		
+	</body>
+</html>
